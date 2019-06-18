@@ -2,3 +2,11 @@ elasticjob:
   zookeeper:
     server-list: cl0505.club:2181
     namespace: springboot.elasticjob
+spring:
+  datasource:
+    username: root
+    password: wcnwcn175
+    url: jdbc:mysql://cl0505.club:3306/dataflow?serverTimezone=Asia/Shanghai&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: /mybatis/*.xml
