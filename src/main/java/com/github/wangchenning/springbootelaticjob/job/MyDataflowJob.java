@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@ElasticDataflowJob(jobName = "myDataflowJob-ly",
-        corn = "0/10 * * * * ?", shardingTotalCount = 2, overwrite = true, streamingProcess = true)
+//@ElasticDataflowJob(jobName = "myDataflowJob-ly",
+//        corn = "0/10 * * * * ?", shardingTotalCount = 2, overwrite = true, streamingProcess = true)
 public class MyDataflowJob implements DataflowJob<Integer> {
     private List<Integer> list = new ArrayList<>();
 

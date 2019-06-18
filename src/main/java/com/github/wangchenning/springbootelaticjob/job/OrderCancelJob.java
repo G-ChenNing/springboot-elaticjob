@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
 
-@ElasticSimpleJob(jobName = "orderCancelJob", corn = "0/15 * * * * ?", shardingTotalCount = 2, overwrite = true)
+//@ElasticSimpleJob(jobName = "orderCancelJob", corn = "0/15 * * * * ?", shardingTotalCount = 2, overwrite = true)
 public class OrderCancelJob implements SimpleJob {
     @Autowired
     private OrderService orderService;

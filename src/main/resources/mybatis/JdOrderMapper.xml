@@ -315,4 +315,10 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getNotFetchOrder" resultMap="BaseResultMap">
+        select
+         <include refid="Base_Column_List"/>
+         from jd_order where status=0 LIMIT #{param1}
+  </select>
 </mapper>

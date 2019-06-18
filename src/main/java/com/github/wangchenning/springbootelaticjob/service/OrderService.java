@@ -1,14 +1,18 @@
 package com.github.wangchenning.springbootelaticjob.service;
 
+import com.github.wangchenning.springbootelaticjob.dao.AllOrderMapper;
 import com.github.wangchenning.springbootelaticjob.dao.JdOrderMapper;
 import com.github.wangchenning.springbootelaticjob.dao.OrderMapper;
 
 import com.github.wangchenning.springbootelaticjob.dao.TmailOrderMapper;
+import com.github.wangchenning.springbootelaticjob.model.AllOrder;
 import com.github.wangchenning.springbootelaticjob.model.JdOrder;
 import com.github.wangchenning.springbootelaticjob.model.Order;
 import com.github.wangchenning.springbootelaticjob.model.TmailOrder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -16,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+@Slf4j
 @Service
 public class OrderService {
     @Autowired
@@ -24,7 +29,8 @@ public class OrderService {
     private JdOrderMapper jdOrderMapper;
     @Autowired
     private TmailOrderMapper tmailOrderMapper;
-
+    @Autowired
+    private AllOrderMapper allOrderMapper;
 
 
     public int insertOrder() {
@@ -55,6 +61,7 @@ public class OrderService {
             Random random = new Random();
             int randomInt = random.nextInt(2);
             if (randomInt == 0) {
+                log.info("插入京东订单");
                 JdOrder jdOrder = new JdOrder();
                 jdOrder.setStatus(0);
                 jdOrder.setAmount(BigDecimal.TEN);
@@ -64,6 +71,7 @@ public class OrderService {
                 jdOrder.setUpdateTime(new Date());
                 jdOrderMapper.insertSelective(jdOrder);
             } else {
+                log.info("插入天猫订单");
                 TmailOrder tmailOrder = new TmailOrder();
                 tmailOrder.setOrderStatus(0);
                 tmailOrder.setMoney(new BigDecimal(100));
@@ -74,5 +82,26 @@ public class OrderService {
                 tmailOrderMapper.insertSelective(tmailOrder);
             }
         }
+    }
+
+    @Transactional
+    public void processJdOrder(AllOrder allOrder) {
+        allOrderMapper.insertSelective(allOrder);
+        JdOrder jdOrder = new JdOrder();
+        jdOrder.setId(allOrder.getThirdOrderId());
+        jdOrder.setStatus(1);
+        jdOrder.setUpdateUser("wcn");
+        jdOrder.setUpdateTime(new Date());
+        jdOrderMapper.updateByPrimaryKeySelective(jdOrder);
+    }
+    @Transactional
+    public void processTmailOrder(AllOrder allOrder) {
+        allOrderMapper.insertSelective(allOrder);
+        TmailOrder tmailOrder = new TmailOrder();
+        tmailOrder.setId(allOrder.getThirdOrderId());
+        tmailOrder.setOrderStatus(1);
+        tmailOrder.setUpdateUser("wcn");
+        tmailOrder.setUpdateTime(new Date());
+        tmailOrderMapper.updateByPrimaryKeySelective(tmailOrder);
     }
 }

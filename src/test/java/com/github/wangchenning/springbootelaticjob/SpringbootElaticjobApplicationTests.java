@@ -1,5 +1,8 @@
 package com.github.wangchenning.springbootelaticjob;
 
+import com.github.wangchenning.springbootelaticjob.dao.JdOrderMapper;
+import com.github.wangchenning.springbootelaticjob.dao.TmailOrderMapper;
+import com.github.wangchenning.springbootelaticjob.model.JdOrder;
 import com.github.wangchenning.springbootelaticjob.model.Order;
 import com.github.wangchenning.springbootelaticjob.service.OrderService;
 import org.junit.Test;
@@ -18,6 +21,10 @@ public class SpringbootElaticjobApplicationTests {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private JdOrderMapper jdOrderMapper;
+    @Autowired
+    private TmailOrderMapper tmailOrderMapper;
 
     @Test
     public void contextLoads() {
@@ -33,4 +40,15 @@ public class SpringbootElaticjobApplicationTests {
         List<Order> order = orderService.getOrder(now, 2, 1);
         System.out.println(order.stream().map(Order::getId).collect(Collectors.toList()));
     }
+
+    @Test
+    public void testThird() {
+        orderService.produceThirdOrder();
+    }
+    @Test
+    public void getJdOrder() {
+        List<JdOrder> notFetchOrder = jdOrderMapper.getNotFetchOrder(5);
+        System.out.println(notFetchOrder.stream().map(JdOrder::getId).collect(Collectors.toList()));
+    }
+
 }

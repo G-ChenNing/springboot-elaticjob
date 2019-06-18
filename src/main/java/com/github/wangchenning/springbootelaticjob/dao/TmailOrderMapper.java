@@ -93,4 +93,7 @@ public interface TmailOrderMapper {
      * @mbg.generated Tue Jun 18 17:45:45 CST 2019
      */
     int updateByPrimaryKey(TmailOrder record);
+
+    List<TmailOrder> getNotFetchOrder(int i);
+
 }

@@ -93,4 +93,6 @@ public interface JdOrderMapper {
      * @mbg.generated Tue Jun 18 17:45:45 CST 2019
      */
     int updateByPrimaryKey(JdOrder record);
+
+    List<JdOrder> getNotFetchOrder(int orderCnt);
 }

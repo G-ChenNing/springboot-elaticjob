@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@ElasticSimpleJob(jobName = "mySimpleJob-ly",
-        corn = "0/5 * * * * ?", shardingTotalCount = 1, overwrite = true)
+//@ElasticSimpleJob(jobName = "mySimpleJob-ly",
+//        corn = "0/5 * * * * ?", shardingTotalCount = 1, overwrite = true)
 public class MySimpleJob implements SimpleJob {
     @Autowired
     private OrderService orderService;
