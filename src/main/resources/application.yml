@@ -1,0 +1,4 @@
+elasticjob:
+  zookeeper:
+    server-list: cl0505.club:2181
+    namespace: springboot.elasticjob
