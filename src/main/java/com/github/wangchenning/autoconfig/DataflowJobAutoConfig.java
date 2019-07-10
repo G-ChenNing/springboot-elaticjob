@@ -41,12 +41,13 @@ public class DataflowJobAutoConfig {
                     int shardingTotalCount = annotation.shardingTotalCount();
                     boolean overwrite = annotation.overwrite();
                     boolean streamingProcess = annotation.streamingProcess();
+                    Class<?> jobStrategy = annotation.jobStrategy();
                     //job核心配置
                     JobCoreConfiguration jcc = JobCoreConfiguration.newBuilder(jobName, corn, shardingTotalCount).build();
                     //job类型配置
                     JobTypeConfiguration jtc = new DataflowJobConfiguration(jcc, instance.getClass().getCanonicalName(),streamingProcess);
                     //job根的配置(LiteJobConfiguration)
-                    LiteJobConfiguration ljc = LiteJobConfiguration.newBuilder(jtc)
+                    LiteJobConfiguration ljc = LiteJobConfiguration.newBuilder(jtc).jobShardingStrategyClass(jobStrategy.getCanonicalName())
                             .overwrite(overwrite).build();
 //                    new JobScheduler(zkCenter, ljc).init();
                     new SpringJobScheduler((ElasticJob) instance, zkCenter, ljc).init();

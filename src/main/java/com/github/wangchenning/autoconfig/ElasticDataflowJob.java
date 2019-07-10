@@ -1,5 +1,6 @@
 package com.github.wangchenning.autoconfig;
 
+import com.dangdang.ddframe.job.lite.api.strategy.impl.AverageAllocationJobShardingStrategy;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.ElementType;
@@ -20,4 +21,6 @@ public @interface ElasticDataflowJob {
     boolean overwrite() default false;
 
     boolean streamingProcess() default false;
+
+    Class<?> jobStrategy() default AverageAllocationJobShardingStrategy.class;
 }

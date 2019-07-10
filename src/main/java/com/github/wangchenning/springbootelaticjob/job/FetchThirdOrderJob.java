@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ElasticDataflowJob(jobName = "fetchThirdOrderJob", corn = "0/15 * * * * ?", shardingTotalCount = 2, overwrite = true, streamingProcess = true)
+//@ElasticDataflowJob(jobName = "fetchThirdOrderJob", corn = "0/15 * * * * ?", shardingTotalCount = 2, overwrite = true, streamingProcess = true)
 public class FetchThirdOrderJob implements DataflowJob<Object> {
     @Autowired
     private JdOrderMapper jdOrderMapper;

@@ -4,23 +4,13 @@ import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.github.wangchenning.autoconfig.ElasticSimpleJob;
 import com.github.wangchenning.springbootelaticjob.sharding.MyShardingStratey;
-import com.github.wangchenning.springbootelaticjob.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-//@ElasticSimpleJob(jobName = "mySimpleJob-ly",
-//        corn = "0/5 * * * * ?", shardingTotalCount = 1, overwrite = true,jobStrategy = MyShardingStratey.class)
-public class MySimpleJob implements SimpleJob {
-    @Autowired
-    private OrderService orderService;
-
+@ElasticSimpleJob(jobName = "MyShardingJob", corn = "0/5 * * * * ?", shardingTotalCount = 10, overwrite = true, jobStrategy = MyShardingStratey.class)
+public class MyShardingJob implements SimpleJob {
     @Override
     public void execute(ShardingContext shardingContext) {
         log.info("我是分片项：" + shardingContext.getShardingItem() + ",总分片项：" + shardingContext.getShardingTotalCount());
-//        for (int i = 0; i < 10; i++) {
-//            orderService.insertOrder();
-//        }
-
     }
 }
