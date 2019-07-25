@@ -12,11 +12,11 @@ public class MyDistrbuteListener extends AbstractDistributeOnceElasticJobListene
 
     @Override
     public void doBeforeJobExecutedAtLastStarted(ShardingContexts shardingContexts) {
-        log.info("我是:"+shardingContexts.getJobName()+"作业，在方法前!");
+        log.info("我是分布式监听器:"+shardingContexts.getJobName()+"作业，在方法前!");
     }
 
     @Override
     public void doAfterJobExecutedAtLastCompleted(ShardingContexts shardingContexts) {
-        log.info("我是:"+shardingContexts.getJobName()+"作业，在方法后!");
+        log.info("我是分布式监听器:"+shardingContexts.getJobName()+"作业，在方法后!");
     }
 }

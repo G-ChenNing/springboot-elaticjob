@@ -11,6 +11,7 @@ import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;
 import com.dangdang.ddframe.job.lite.config.LiteJobConfiguration;
 import com.dangdang.ddframe.job.lite.spring.api.SpringJobScheduler;
 import com.dangdang.ddframe.job.reg.base.CoordinatorRegistryCenter;
+import com.github.wangchenning.springbootelaticjob.listener.MyDistrbuteListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -74,6 +75,8 @@ public class SimpleJobAutoConfig {
                         JobEventConfiguration jec = new JobEventRdbConfiguration(dataSource);
                         new SpringJobScheduler((ElasticJob) instance, zkCenter, ljc, jec,listenerInstance).init();
                     }
+//                    MyDistrbuteListener myDistrbuteListener = new MyDistrbuteListener(5000,5000);
+//                    new SpringJobScheduler((ElasticJob) instance, zkCenter, ljc, myDistrbuteListener).init();
                     new SpringJobScheduler((ElasticJob) instance, zkCenter, ljc, listenerInstance).init();
                 }
             }
